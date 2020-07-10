@@ -1,0 +1,34 @@
+---
+- name: GRAB F5 FACTS
+  hosts: f5
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Upload absolute image to the BIG-IP
+      bigip_software_image:
+        image: BIGIP-16.0.0-0.0.12.iso
+        provider: 
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 443
+          validate_certs: false
+
+    - name: run show version and check to see if output contains BIG-IP
+      bigip_command:
+        commands: 
+          - show sys version
+          - install sys software image BIGIP-16.0.0-0.0.12.iso create-volume volume HD1.2
+        wait_for: result[0] contains BIG-IP
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 443
+          validate_certs: false
+      register: device_facts
+
+    - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
+      debug:
+        var: device_facts
