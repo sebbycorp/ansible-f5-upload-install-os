@@ -10,7 +10,16 @@ The playbook perfoms the following actions
 * installs it on a new partition
 * prints out an output of when its complete
 
-# There are you yaml files:
-** install-os.yaml
+## install-os.yaml
 * uploads, installs and verifies the install
 
+## install-os-boot.yaml
+* uploads, installs, verifies the install and copies the configuration from boot location HD1.1 (BIG-IP 15.1.0) to boot location HD1.3 (BIG-IP 16.0.0) and immediately reboot the system to the HD1.3 boot location:
+
+cpcfg --source=HD1.1 --reboot HD1.3
+
+On a VIPRION system, ensure each blade receives the updated configuration by running the cpcfg command with the clsh utility on the primary blade.
+
+For example:
+
+clsh cpcfg --source=HD1.1 --reboot HD1.3
