@@ -3,40 +3,37 @@
   hosts: f5
   connection: local
   gather_facts: false
+  vars:
+    provider:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: 443
+      validate_certs: false
 
   tasks:
+    - name: Save the running configuration
+      bigip_config:
+        save: yes
+        provider: "{{ provider }}"
+
     - name: Upload absolute image to the BIG-IP
       bigip_software_image:
         image: BIGIP-16.0.0-0.0.12.iso
-        provider: 
-          server: "{{private_ip}}"
-          user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
-          server_port: 443
-          validate_certs: false
+        provider: "{{ provider }}"
 
     - name: run show version and check to see if output contains BIG-IP
       bigip_software_install:
         image: BIGIP-16.0.0-0.0.12.iso
-        volume: HD1.2
+        volume: HD1.3
         state: installed
-        provider:
-          server: "{{private_ip}}"
-          user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
-          server_port: 443
-          validate_certs: false
+        provider: "{{ provider }}"
 
     - name: Verify the system was installed
       bigip_device_info:
         gather_subset: 
           - software-volumes
-        provider:
-          server: "{{private_ip}}"
-          user: "{{ansible_user}}"
-          password: "{{ansible_ssh_pass}}"
-          server_port: 443
-          validate_certs: false
+        provider: "{{ provider }}"
       register: device_facts
 
     - name: DISPLAY ONLY THE MAC ADDRESS
