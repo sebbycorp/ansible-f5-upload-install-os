@@ -36,6 +36,6 @@
         provider: "{{ provider }}"
       register: device_facts
 
-    - name: DISPLAY ONLY THE MAC ADDRESS
+    - name: Displays the device info
       debug:
         var: device_facts
