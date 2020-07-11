@@ -34,8 +34,16 @@
         gather_subset: 
           - software-volumes
         provider: "{{ provider }}"
-      register: device_facts
+      register: bigip_software_install
 
     - name: Displays the device info
       debug:
-        var: device_facts
+        var: bigip_software_install
+
+    - name: Boot instal new partition
+      bigip_command:
+        commands: 
+          - run util bash
+          - cpcfg --source=HD1.1 --reboot HD1.3
+        wait_for: result[0] contains BIG-IP
+        provider: "{{ provider }}"
