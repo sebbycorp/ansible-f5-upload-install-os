@@ -1,7 +1,14 @@
 # ansible-f5-upload-install-os
-The following is a quick playbook that uploads and installs F5 .ISO to your device and starts installing it on a new partition
 
-I had to upgrade about 40+ devices this week, so i spun up a quick playbook to do the upload and install for me. 
+I was asked to upgarde 40+ f5 devices in AWS, so i thought it would be best to automate the entire procoess using a simple ansible playbook. 
+
+* Inventory list of all the f5s i needed to upgrade (active and standby) .. because we need the code on all the versions.
+
+The playbook perfoms the following actions
+* saves the existing configurations
+* uploads the latest OS
+* installs it on a new partition
+* prints out an output of when its complete
 
 Note: You can change the state to. what best suites yours requirements. 
 
