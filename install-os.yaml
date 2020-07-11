@@ -26,4 +26,19 @@
           password: "{{ansible_ssh_pass}}"
           server_port: 443
           validate_certs: false
+
+    - name: Verify the system was installed
+      bigip_device_info:
+        gather_subset: 
+          - software-volumes
+        provider:
+          server: "{{private_ip}}"
+          user: "{{ansible_user}}"
+          password: "{{ansible_ssh_pass}}"
+          server_port: 443
+          validate_certs: false
       register: device_facts
+
+    - name: DISPLAY ONLY THE MAC ADDRESS
+      debug:
+        var: device_facts
