@@ -3,8 +3,7 @@ The following is a quick playbook that uploads and installs F5 .ISO to your devi
 
 I had to upgrade about 40+ devices this week, so i spun up a quick playbook to do the upload and install for me. 
 
-Note: To a
-
+Note: You can change the state to. what best suites yours requirements. 
 
 State string Choices:
 * activated
