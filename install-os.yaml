@@ -40,10 +40,3 @@
       debug:
         var: bigip_software_install
 
-    - name: Boot instal new partition
-      bigip_command:
-        commands: 
-          - run util bash
-          - cpcfg --source=HD1.1 --reboot HD1.3
-        wait_for: result[0] contains BIG-IP
-        provider: "{{ provider }}"
