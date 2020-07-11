@@ -4,6 +4,16 @@ I was asked to upgarde 40+ f5 devices in AWS, so i thought it would be best to a
 
 * Inventory list of all the f5s i needed to upgrade (active and standby) .. because we need the code on all the versions.
 
+to execute install
+```
+ansible-playbook -i inventory/hosts install-os.yaml
+```
+
+to verify
+```
+nsible-playbook -i inventory/hosts verify-install.yaml
+```
+
 The playbook perfoms the following actions
 * saves the existing configurations
 * uploads the latest OS
