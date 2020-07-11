@@ -25,25 +25,6 @@
     - name: Installs the BIG-IP OS
       bigip_software_install:
         image: BIGIP-16.0.0-0.0.12.iso
-        volume: HD1.3
-        state: installed
-        provider: "{{ provider }}"
-
-    - name: Verify the system was installed
-      bigip_device_info:
-        gather_subset: 
-          - software-volumes
-        provider: "{{ provider }}"
-      register: bigip_software_install
-
-    - name: Displays the device info
-      debug:
-        var: bigip_software_install
-
-    - name: Boot instal new partition
-      bigip_command:
-        commands: 
-          - run util bash
-          - cpcfg --source=HD1.1 --reboot HD1.3
-        wait_for: result[0] contains BIG-IP
+        volume: HD1.1
+        state: activated
         provider: "{{ provider }}"
