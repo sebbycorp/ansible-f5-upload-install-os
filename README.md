@@ -11,7 +11,7 @@ ansible-playbook -i inventory/hosts install-os.yaml
 
 to verify
 ```
-nsible-playbook -i inventory/hosts verify-install.yaml
+ansible-playbook -i inventory/hosts verify-install.yaml
 ```
 
 The playbook perfoms the following actions
