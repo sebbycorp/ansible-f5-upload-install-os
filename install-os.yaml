@@ -16,11 +16,10 @@
           validate_certs: false
 
     - name: run show version and check to see if output contains BIG-IP
-      bigip_command:
-        commands: 
-          - show sys version
-          - install sys software image BIGIP-16.0.0-0.0.12.iso create-volume volume HD1.2
-        wait_for: result[0] contains BIG-IP
+      bigip_software_install:
+        image: BIGIP-16.0.0-0.0.12.iso
+        volume: HD1.2
+        state: installed
         provider:
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
@@ -28,7 +27,3 @@
           server_port: 443
           validate_certs: false
       register: device_facts
-
-    - name: DISPLAY COMPLETE BIG-IP SYSTEM INFORMATION
-      debug:
-        var: device_facts
