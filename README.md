@@ -10,11 +10,7 @@ The playbook perfoms the following actions
 * installs it on a new partition
 * prints out an output of when its complete
 
-Note: You can change the state to. what best suites yours requirements. 
+# There are you yaml files:
+** install-os.yaml
+* uploads, installs and verifies the install
 
-State string Choices:
-* activated
-* installed
-
-When installed, ensures that the software is installed on the volume and the volume is set to be booted from. The device is not rebooted into the new software.
-When activated, performs the same operation as installed, but the system is rebooted to the new software.
