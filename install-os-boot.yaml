@@ -1,0 +1,47 @@
+---
+- name: GRAB F5 FACTS
+  hosts: f5
+  connection: local
+  gather_facts: false
+  vars:
+    provider:
+      server: "{{private_ip}}"
+      user: "{{ansible_user}}"
+      password: "{{ansible_ssh_pass}}"
+      server_port: 443
+      validate_certs: false
+
+  tasks:
+    - name: Save the running configuration
+      bigip_config:
+        save: yes
+        provider: "{{ provider }}"
+
+    - name: Upload absolute image to the BIG-IP
+      bigip_software_image:
+        image: BIGIP-16.0.0-0.0.12.iso
+        provider: "{{ provider }}"
+
+    - name: Installs the BIG-IP OS
+      bigip_software_install:
+        image: BIGIP-16.0.0-0.0.12.iso
+        volume: HD1.3
+        state: installed
+        provider: "{{ provider }}"
+
+    - name: Verify the system was installed
+      bigip_device_info:
+        gather_subset: 
+          - software-volumes
+        provider: "{{ provider }}"
+      register: bigip_software_install
+
+    - name: Displays the device info
+      debug:
+        var: bigip_software_install
+
+    - name: Boot instal new partition
+      bigip_command:
+        commands: 
+          - cpcfg --source=HD1.1 --reboot HD1.3
+        provider: "{{ provider }}"
