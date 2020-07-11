@@ -22,7 +22,7 @@
         image: BIGIP-16.0.0-0.0.12.iso
         provider: "{{ provider }}"
 
-    - name: run show version and check to see if output contains BIG-IP
+    - name: Installs the BIG-IP OS
       bigip_software_install:
         image: BIGIP-16.0.0-0.0.12.iso
         volume: HD1.3
