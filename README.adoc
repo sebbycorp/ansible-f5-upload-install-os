@@ -33,3 +33,5 @@ On a VIPRION system, ensure each blade receives the updated configuration by run
 For example:
 
 clsh cpcfg --source=HD1.1 --reboot HD1.3
+
+** Tested in VMware vsphere 6.7 = all good! 
