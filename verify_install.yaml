@@ -1,20 +1,12 @@
 ---
-- name: Verify install
-  hosts: f5
+- hosts: localhost
   connection: local
-  gather_facts: false
-  vars:
-    provider:
-      server: "{{private_ip}}"
-      user: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      server_port: 443
-      validate_certs: false
-
+  vars_files:
+    - creds.yml
   tasks:
     - name: Verify the system was installed
       bigip_command:
-        commands: 
+        commands:
           - show sys software status
         provider: "{{ provider }}"
       register: device_facts

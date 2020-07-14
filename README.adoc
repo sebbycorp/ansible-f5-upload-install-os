@@ -1,18 +1,18 @@
-# ansible-f5-upload-install-os
+== ansible-f5-upload-install-os
 
 I was asked to upgarde 40+ f5 devices in AWS, so i thought it would be best to automate the entire procoess using a simple ansible playbook. 
 
 * Inventory list of all the f5s i needed to upgrade (active and standby) .. because we need the code on all the versions.
 
 to execute install
-```
+----
 ansible-playbook -i inventory/hosts install-os.yaml
-```
-
+----
 to verify
-```
+
+----
 ansible-playbook -i inventory/hosts verify-install.yaml
-```
+----
 
 The playbook perfoms the following actions
 * saves the existing configurations
@@ -20,11 +20,11 @@ The playbook perfoms the following actions
 * installs it on a new partition
 * prints out an output of when its complete
 
-## install-os.yaml
+=== install-os.yaml
 * uploads, installs and verifies the install
 
-## install-os-boot.yaml
-* uploads, installs, verifies the install and copies the configuration from boot location HD1.1 (BIG-IP 15.1.0) to boot location HD1.3 (BIG-IP 16.0.0) and immediately reboot the system to the HD1.3 boot location:
+=== install-os-boot.yaml
+* uploads, installs, verifies the install and copies the configuration from boot location HD1.1 (BIG-IP 15.1.0.2) to boot location HD1.3 (BIG-IP 15.1.0.4) and immediately reboot the system to the HD1.3 boot location:
 
 cpcfg --source=HD1.1 --reboot HD1.3
 
@@ -33,3 +33,5 @@ On a VIPRION system, ensure each blade receives the updated configuration by run
 For example:
 
 clsh cpcfg --source=HD1.1 --reboot HD1.3
+
+** Tested in VMware vsphere 6.7 = all good! 
