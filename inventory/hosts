@@ -1,2 +1,0 @@
-[lb]
-f5 ansible_host=localhost ansible_user=admin private_ip=192.168.90.5 ansible_ssh_pass=admin
