@@ -35,3 +35,4 @@ For example:
 clsh cpcfg --source=HD1.1 --reboot HD1.3
 
 ** Tested in VMware vsphere 6.7 = all good! 
+** Tested on Azure = all good! (MAKE SURE YOU HAVE /shared/images with enough space)
