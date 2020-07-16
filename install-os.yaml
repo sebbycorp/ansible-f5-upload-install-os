@@ -28,7 +28,7 @@
       bigip_software_install:
         image: BIGIP-16.0.0-0.0.12.iso
         volume: HD1.2
-        state: activated
+        state: installed
         provider: "{{ provider }}"
       tags:
         - install_bigip
@@ -48,4 +48,7 @@
       tags:
         - verify
 
-
+    - name: Copy the config from HD1.1 to HD1.2 cpcfg --source=HD1.1 --reboot HD1.2    
+      raw: curl -u "{{ansible_user}}":"{{ansible_ssh_pass}}" -k https://"{{ansible_host}}":8443/mgmt/tm/util/bash  -H "Content-type:application/json" -d "{\"command\":\"run\",\"utilCmdArgs\":\"-c 'cpcfg --source=HD1.1 --reboot HD1.2'\"}"
+      ignore_errors: True
+      register: cpcfg
