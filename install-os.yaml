@@ -13,8 +13,8 @@
 
   tasks:
     - name: Save the running configuration
-      bigip_command:
-        commands: save sys config
+      bigip_config:
+        save: yes
         provider: "{{ provider }}"
 
     - name: Upload absolute image to the BIG-IP
@@ -52,3 +52,4 @@
       raw: curl -u "{{ansible_user}}":"{{ansible_ssh_pass}}" -k https://"{{ansible_host}}":8443/mgmt/tm/util/bash  -H "Content-type:application/json" -d "{\"command\":\"run\",\"utilCmdArgs\":\"-c 'cpcfg --source=HD1.1 --reboot HD1.2'\"}"
       ignore_errors: True
       register: cpcfg
+
