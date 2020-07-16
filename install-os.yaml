@@ -8,6 +8,8 @@
       bigip_config:
         save: yes
         provider: "{{ provider }}"
+      tags:
+        - save_conf
 
     - name: Upload absolute image to the BIG-IP
       bigip_software_image:

@@ -13,10 +13,14 @@
       bigip_software_image:
         image:  "{{ image_version }}"
         provider: "{{ provider }}"
+      tags:
+        - upload_bigip
 
     - name: Installs the BIG-IP OS
       bigip_software_install:
         image: "{{ image_version }}" #BIGIP-16.0.0-0.0.12.iso
-        volume: HD1.3
+        volume: "{{ boot_location }}"
         state: activated
         provider: "{{ provider }}"
+      tags:
+        - install_bigip
