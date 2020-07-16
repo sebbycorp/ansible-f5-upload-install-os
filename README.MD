@@ -15,11 +15,11 @@ ansible-playbook -i inventory/hosts install-os-boot.yaml
 ## install-os.yaml 
 
 The playbook perfoms the following actions:
-** saves the existing configurations
-** uploads the latest OS
-** installs it on a new partition
-** copies the exiting configuration to the new parition
-** prints out an output of when its complete
+* saves the existing configurations
+* uploads the latest OS
+* installs it on a new partition
+* copies the exiting configuration to the new parition
+* prints out an output of when its complete
 
 Note: i tried to use the bigip_command to execute the cpcfg command but it only works for TMSH commands not CLI/BASH commands.. so I used a the following tasks: 
 
@@ -33,12 +33,12 @@ Note: i tried to use the bigip_command to execute the cpcfg command but it only 
 ## install-os-boot.yaml 
 
 This playbook does it all, uploads, cpcfg and reboots the device. 
-** saves the existing configurations
-** uploads the latest OS
-** installs it on a new partition
-** copies the exiting configuration to the new parition
-** activated the new partition.
-** prints out an output of when its complete
+* saves the existing configurations
+* uploads the latest OS
+* installs it on a new partition
+* copies the exiting configuration to the new parition
+* activated the new partition.
+* prints out an output of when its complete
 
 Note: i tried to use the bigip_command to execute the cpcfg command but it only works for TMSH commands not CLI/BASH commands.. so I used a the following tasks: 
 
