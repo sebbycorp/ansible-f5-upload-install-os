@@ -15,11 +15,11 @@ ansible-playbook -i inventory/hosts install-os-boot.yaml
 ## install-os.yaml 
 
 The playbook perfoms the following actions:
-* saves the existing configurations
-* uploads the latest OS
-* installs it on a new partition
-* copies the exiting configuration to the new parition
-* prints out an output of when its complete
+** saves the existing configurations
+** uploads the latest OS
+** installs it on a new partition
+** copies the exiting configuration to the new parition
+** prints out an output of when its complete
 
 Note: i tried to use the bigip_command to execute the cpcfg command but it only works for TMSH commands not CLI/BASH commands.. so I used a the following tasks: 
 
@@ -33,12 +33,12 @@ Note: i tried to use the bigip_command to execute the cpcfg command but it only 
 ## install-os-boot.yaml 
 
 This playbook does it all, uploads, cpcfg and reboots the device. 
-* saves the existing configurations
-* uploads the latest OS
-* installs it on a new partition
-* copies the exiting configuration to the new parition
-* activated the new partition.
-* prints out an output of when its complete
+** saves the existing configurations
+** uploads the latest OS
+** installs it on a new partition
+** copies the exiting configuration to the new parition
+** activated the new partition.
+** prints out an output of when its complete
 
 Note: i tried to use the bigip_command to execute the cpcfg command but it only works for TMSH commands not CLI/BASH commands.. so I used a the following tasks: 
 
@@ -47,6 +47,9 @@ Note: i tried to use the bigip_command to execute the cpcfg command but it only 
       raw: curl -u "{{ansible_user}}":"{{ansible_ssh_pass}}" -k https://"{{ansible_host}}":8443/mgmt/tm/util/bash  -H "Content-type:application/json" -d "{\"command\":\"run\",\"utilCmdArgs\":\"-c 'cpcfg --source=HD1.1 --reboot HD1.2'\"}"
       ignore_errors: True
       register: cpcfg
+```
+
+
 
 ## How to use the playbook.
 I am sure i will continue to edit this to make it better and learn as I go.. for F5 VEs and physical devices this is the cpfcg command
