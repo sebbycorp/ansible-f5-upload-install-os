@@ -1,15 +1,11 @@
-== ansible-f5-upload-install-os
+# ansible-f5-upload-install-os
 
 I was asked to upgarde 40+ f5 devices in AWS, so i thought it would be best to automate the entire procoess using a simple ansible playbook. 
 
 * Inventory list of all the f5s i needed to upgrade (active and standby) for the environment.
-* There are two playbooks deployed depending on your requirements.
 
 ```
 ansible-playbook -i inventory/hosts install-os.yaml
-```
-```
-ansible-playbook -i inventory/hosts install-os-boot.yaml
 ```
 
 ## install-os.yaml 
@@ -18,10 +14,12 @@ The playbook perfoms the following actions:
 * saves the existing configurations
 * uploads the latest OS
 * installs it on a new partition
-* copies the exiting configuration to the new parition
+* copies the exiting configuration to the new parition and reboots the device
 * prints out an output of when its complete
 
-Note: i tried to use the bigip_command to execute the cpcfg command but it only works for TMSH commands not CLI/BASH commands.. so I used a the following tasks: 
+Note: 
+* I tried to use the bigip_command to execute the cpcfg command but it only works for TMSH commands not CLI/BASH commands.
+* if you dont want the device to boot just remove the following.
 
 ```
     - name: Copy the config from HD1.1 to HD1.2 cpcfg --source=HD1.1 --reboot HD1.2    
@@ -29,26 +27,6 @@ Note: i tried to use the bigip_command to execute the cpcfg command but it only 
       ignore_errors: True
       register: cpcfg
 ```
-
-## install-os-boot.yaml 
-
-This playbook does it all, uploads, cpcfg and reboots the device. 
-* saves the existing configurations
-* uploads the latest OS
-* installs it on a new partition
-* copies the exiting configuration to the new parition
-* activated the new partition.
-* prints out an output of when its complete
-
-Note: i tried to use the bigip_command to execute the cpcfg command but it only works for TMSH commands not CLI/BASH commands.. so I used a the following tasks: 
-
-```
-    - name: Copy the config from HD1.1 to HD1.2 cpcfg --source=HD1.1 --reboot HD1.2    
-      raw: curl -u "{{ansible_user}}":"{{ansible_ssh_pass}}" -k https://"{{ansible_host}}":8443/mgmt/tm/util/bash  -H "Content-type:application/json" -d "{\"command\":\"run\",\"utilCmdArgs\":\"-c 'cpcfg --source=HD1.1 --reboot HD1.2'\"}"
-      ignore_errors: True
-      register: cpcfg
-```
-
 
 
 ## How to use the playbook.
