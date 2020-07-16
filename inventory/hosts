@@ -1,0 +1,3 @@
+[lb]
+f51 ansible_host=ec2-3-87-87-88.compute-1.amazonaws.com ansible_user=admin private_ip=ec2-3-87-87-88.compute-1.amazonaws.com ansible_ssh_pass=password!
+f52 ansible_host=ec2-54-157-247-145.compute-1.amazonaws.com ansible_user=admin private_ip=ec2-54-157-247-145.compute-1.amazonaws.com ansible_ssh_pass=password!
