@@ -8,6 +8,9 @@ I was asked to upgarde 40+ f5 devices in AWS, so i thought it would be best to a
 ansible-playbook -i inventory/hosts install-os.yaml
 ```
 
+```
+mount -o remount,ro /usr
+```
 ## install-os.yaml 
 
 The playbook perfoms the following actions:
